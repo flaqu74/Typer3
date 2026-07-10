@@ -163,7 +163,7 @@
             return;} */  // <-- Wklejone DOTĄD
             alert("Typy zostały wysłane!");
             //button.innerText = "WYSŁANE";
-            statusDiv.innerText = "Możesz wysłać potwierdzenie";
+            statusDiv.innerText = "WYSYŁKA POTWIERDZENIA (OPCJA)";
             //document.getElementById('userName').value = "";
             //loadData();
             // WKLEJONE:
@@ -172,7 +172,8 @@
             button.style.display = "none";
             const mailButton = document.getElementById("mailButton");
             mailButton.style.display = "block";
-            mailButton.onclick = () => { window.location.href = mailto;  mailButton.disabled = true; mailButton.innerText = "WYGENEROWANO EMAIL";};   // <-- DOTĄD
+            mailButton.onclick = () => { window.location.href = mailto;  mailButton.disabled = true; mailButton.innerText = "WYGENEROWANO EMAIL";};  
+            statusDiv.innerText = "TYPOWANIE ZAKOŃCZONE";// <-- DOTĄD
         } catch (error) {
             alert("Wystąpił błąd!");
                 button.disabled = false;
