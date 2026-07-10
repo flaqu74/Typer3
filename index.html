@@ -62,6 +62,7 @@
    // URL do Typer2 wersja chyba 3 - tylko wrzucanie typów do arkusza Wyniki
     //const scriptUrl = "https://script.google.com/macros/s/AKfycbxatqkdBUu98XiMUARmQmbbpVHmHllFytNyv6bmTjovAnzVqDgDll8gBr2Mp6jXzj1D0g/exec";
     const scriptUrl = "https://script.google.com/macros/s/AKfycbwZEdsUASD9lyv97msXCZm3uU8c6Q3U5Sy1yaE5Z-27Hy-1tBc2xSqkrBQYPMRRRLM6/exec";
+    
 
     const statusDiv = document.getElementById('status');
     const stageSelect = document.getElementById('stage');
@@ -138,14 +139,14 @@
                 druzyna: el.getAttribute('data-t1'), 
                 gole: g1, 
                 joker: (jokerRadio.value == index ? "joker" : ""),
-                wiersz: 2 * index
+                wiersz: 2 * index + 1
             });
             typyDanych.push({ 
                 nr: el.getAttribute('data-nr'), 
                 druzyna: el.getAttribute('data-t2'), 
                 gole: g2, 
                 joker: "",
-                wiersz: 2 * index + 1
+                wiersz: 2 * index + 2
             });
         });
         const payload = { user: name, etap: stageText, typy: typyDanych };
