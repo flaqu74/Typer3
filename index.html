@@ -53,6 +53,7 @@
     </div>
 
     <button id="sendBtn" class="btn-send" onclick="sendTypy()">WYŚLIJ TYPY</button>
+    <button id="mailButton" class="btn-send" style="display:none;">WYŚLIJ POTWIERDZENIE E-MAIL</button>
 </div>
 
 <script>
@@ -115,10 +116,9 @@
         const jokerRadio = document.querySelector('input[name="joker"]:checked');
 
         if (!name || !jokerRadio) return alert("Podaj imię i zaznacz Jokera!");
-        
-            const button = document.getElementById("sendBtn");
-            button.disabled = true;
-            button.innerText = "WYSYŁANIE...";
+        const button = document.getElementById("sendBtn");
+        button.disabled = true;
+        button.innerText = "WYSYŁANIE...";
         
         statusDiv.innerText = "WYSYŁANIE...";
         const typyDanych = [];
@@ -152,20 +152,37 @@
         const payload = { user: name, etap: stageText, typy: typyDanych };
 
         try {
-            await fetch(scriptUrl, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+            // BYŁO: await fetch(scriptUrl, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+            //JEST:
+            const response = await fetch(scriptUrl, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+            const result = await response.json();
+            if (!result.success) {
+                alert(result.message);
+                button.disabled = false;
+                button.innerText = "WYŚLIJ TYPY";
+            return;} // <-- Wklejone DOTĄD
             alert("Typy zostały wysłane!");
             button.innerText = "WYSŁANE";
             document.getElementById('userName').value = "";
             loadData();
+            // WKLEJONE:
+            const subject = `Potwierdzenie wysłania typów - ${stageText} - ${name}`;
+            const mailto = `mailto:${mailOdbiorcy}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+            button.style.display = "none";
+            const mailButton = document.getElementById("mailButton");
+            mailButton.style.display = "block";
+            mailButton.onclick = () => { window.location.href = mailto;  mailButton.disabled = true; mailButton.innerText = "WYGENEROWANO EMAIL";};   // <-- DOTĄD
         } catch (error) {
             alert("Wystąpił błąd!");
                 button.disabled = false;
                 button.innerText = "WYŚLIJ TYPY";
             statusDiv.innerText = "BŁĄD";
         }
+    // BYŁY TE 3 LINIE:  
+        /*
     const subject = `Potwierdzenie wysłania typów - ${stageText} - ${name}`;
     const mailto = `mailto:${mailOdbiorcy}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
-    window.location.href = mailto;           
+    window.location.href = mailto;         */
     }
 
     stageSelect.addEventListener('change', loadData);
