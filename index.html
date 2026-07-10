@@ -6,35 +6,30 @@
     <title>Typer PWA</title>
     <link rel="apple-touch-icon" href="[via.placeholder.com](https://via.placeholder.com/192/2e7d32/ffffff?text=T)">
     <style>
-        body { font-family: -apple-system, sans-serif; background:#f5f5f5; margin:0; padding:15px; }
-        .container { max-width:500px; margin:0 auto; background:white; padding:20px; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.1); }
-        header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
-        select { padding:8px; border-radius:5px; border:1px solid #ccc; width:150px; }
-        .status { text-align:center; font-weight:bold; color:#2e7d32; margin-bottom:5px; }
-        .table-header { display:flex; font-weight:bold; border-bottom:1px solid #eee; padding-bottom:5px; font-size:.9em; }
-        .row { display:flex; align-items:center; padding:4px 0; border-bottom:1px solid #f9f9f9; }
-        .col-mecz { flex:3; font-size:.9em; }
-        .col-wynik { flex:2; display:flex; justify-content:center; align-items:center; gap:4px; }
-        .col-joker { flex:1; text-align:center; }
-        input[type="number"] { width:35px; text-align:center; border:1px solid #ccc; border-radius:4px; padding:4px; }
-        .user-section { margin-top:40px; margin-bottom:30px; }
-        label { display:block; font-weight:bold; margin-bottom:10px; }
-        .btn-send { width:100%; background:#2e7d32; color:white; border:none; padding:15px; border-radius:8px; font-weight:bold; cursor:pointer; font-size:16px; }
+        body { font-family: -apple-system, sans-serif; background: #f5f5f5; margin: 0; padding: 15px; }
+        .container { max-width: 400px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        select { padding: 8px; border-radius: 5px; border: 1px solid #ccc; width: 150px; }
+        .status { text-align: center; font-weight: bold; color: #2e7d32; margin-bottom: 15px; }
+        .table-header { display: flex; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 5px; font-size: 0.9em; }
+        .row { display: flex; align-items: center; padding: 4px 0; border-bottom: 1px solid #f9f9f9; }
+        .col-mecz { flex: 4; font-size: 0.9em; }
+        .col-wynik { flex: 2; display: flex; justify-content: center; align-items: center; gap: 4px; }
+        .col-joker { flex: 1; text-align: center; }
+        input[type="number"] { width: 25px; text-align: center; border: 1px solid #ccc; border-radius: 4px; padding: 4px; }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;}
+        .user-section { margin-top: 40px; }
+        .user-input { width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 30px;}
+        .btn-send { width: 100%; background: #2e7d32; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; }
         .btn-send:disabled {background: #9e9e9e; cursor: not-allowed; opacity: .7;}
-        .autocomplete { position:relative; width:100%; margin:10px 0 30px 0; }
-        #playerName { width:100%; box-sizing:border-box; padding:12px 15px; font-size:16px; border:1px solid #ccc; border-radius:8px; outline:none; background:#fff; }
-        #playerName:focus { border-color:#2e7d32; box-shadow:0 0 0 2px rgba(46,125,50,.15); }
-        .autocomplete-items { position:absolute; top:calc(100% + 2px); left:0; right:0; background:#fff; border:1px solid #ccc; border-radius:8px; max-height:220px; overflow-y:auto; z-index:9999; display:none; box-shadow:0 4px 12px rgba(0,0,0,.15); }
-        .autocomplete-item { padding:12px 15px; cursor:pointer; border-bottom:1px solid #eee; }
-        .autocomplete-item:last-child { border-bottom:none; }
-        .autocomplete-item:hover { background:#e8f5e9; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <span style="font-weight: bold;">Etap:</span>
+        <span style="font-weight: bold;">Runda play-off:</span>
         <select id="stage">
             <option value="0">1/4 Finału</option>
             <option value="619158091">1/2 Finału</option>
@@ -52,54 +47,25 @@
 
     <div id="match-list"></div>
 
-<div class="user-section">
-    <label>Imię i Nazwisko:</label>
-    <div style="display:flex; gap:10px; align-items:flex-start;">
-        <div class="autocomplete" style="flex:3;">
-            <input
-                type="text"
-                id="playerName"
-                placeholder="Imię i nazwisko"
-                autocomplete="off">
-           <div id="playersList" class="autocomplete-items"></div>
-        </div>
-
-        <div style="flex:1;">
-        <input
-            type="password"
-            id="playerPin"
-            placeholder="PIN"
-            maxlength="6"
-            style="width:100%; box-sizing:border-box; padding:12px 15px; font-size:16px; border:1px solid #ccc; border-radius:8px;">
-        </div>
+    <div class="user-section">
+        <label style="font-weight: bold;">Imię i Nazwisko:</label>
+        <input type="text" id="userName" class="user-input" placeholder="np. Jan Kowalski">
     </div>
-</div>
-
 
     <button id="sendBtn" class="btn-send" onclick="sendTypy()">WYŚLIJ TYPY</button>
-    <button id="mailButton" class="btn-send" style="display:none;">WYŚLIJ POTWIERDZENIE E-MAIL</button>
 </div>
 
 <script>
     // --- KONFIGURACJA ---
     const baseUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQd7RZ5-PO-knXZfYohz6daMXryQTgJ27DJIHAUEBLiB6wT-s5lB_zraplf3K-RMuEWFX3lTx52vLcf/pub?output=csv";
-    //Poprzednie wdrożenie
-    //const scriptUrl = "https://script.google.com/macros/s/AKfycbx-AqNSfQKd1h4BDk4raw9h8oMSgHBk1gbcYsY8sz__Xmr_4MhPC2RQZV4zvD4GcWDycA/exec";
-    const scriptUrl = "https://script.google.com/macros/s/AKfycbyaHuAT-s4SU187RfK4PaySnz3vuVBl5X9iSGGEWRy25tI8_P0vyK-b0C3ap31jMLBZHQ/exec";
-    //const scriptUrl = "https://script.google.com/macros/s/AKfycbw6t7n0dwW57kI7iXJhjDydDwgBIOJWATbZ7C0HMqO1R_7ADeKqFJVDS9BwFYFy0N9i/exec";
-    //const urlGracze = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQd7RZ5-PO-knXZfYohz6daMXryQTgJ27DJIHAUEBLiB6wT-s5lB_zraplf3K-RMuEWFX3lTx52vLcf/pub?output=csv&gid=449826596";
-    const urlGracze = scriptUrl;
+    // const scriptUrl = "https://script.google.com/macros/s/AKfycbx-AqNSfQKd1h4BDk4raw9h8oMSgHBk1gbcYsY8sz__Xmr_4MhPC2RQZV4zvD4GcWDycA/exec";
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbxatqkdBUu98XiMUARmQmbbpVHmHllFytNyv6bmTjovAnzVqDgDll8gBr2Mp6jXzj1D0g/exec";
 
     const statusDiv = document.getElementById('status');
     const stageSelect = document.getElementById('stage');
     const matchListDiv = document.getElementById('match-list');
 
     const mailOdbiorcy = "typer_srlw@fajne.to";
-
-    let players = [];
-    let selectedPlayerId = null;
-    const input = document.getElementById("playerName");
-    const list = document.getElementById("playersList");
 
     async function loadData() {
         statusDiv.innerText = "ŁADOWANIE...";
@@ -139,99 +105,14 @@
             statusDiv.innerText = "BŁĄD SIECI";
         }
     }
-/*
-async function loadPlayers() {
-    try {
-        const response = await fetch(urlGracze);
-        if (!response.ok) {throw new Error(`HTTP ${response.status}`);}
 
-        const text = await response.text();
-        players = [...new Set(
-            text
-                .replace(/^\uFEFF/, "")
-                .split(/\r?\n/)
-                .map(row => row.split(",")[0].trim().replace(/"/g, ""))
-                .filter(name => name && name.toLowerCase() !== "nazwisko")
-        )];
-
-        console.log("Pobrano graczy:", players.length);
-
-    } catch (error) {console.error("Błąd listy graczy:", error);}
-} */   
-async function loadPlayers() {
-    try {
-        const response = await fetch(scriptUrl + "?action=players");
-        if (!response.ok) {
-            throw new Error("Błąd pobierania listy graczy.");
-        }
-        players = await response.json();
-        console.log(players);
-    }
-    catch(error){
-        console.error(error);
-        alert("Nie udało się pobrać listy graczy.");
-    }
-}
-    
-input.addEventListener("input", function () {
-    const value = this.value.toLowerCase();
-    selectedPlayerId = null;
-    list.innerHTML = "";
-    if (value.length == 0) {
-        list.style.display = "none";
-        return;
-    }
-    const found = players
-        .filter(player =>
-            player.name.toLowerCase().includes(value)
-        )
-        .slice(0,10);
-    found.forEach(player => {
-        const div = document.createElement("div");
-        div.className = "autocomplete-item";
-        div.textContent = player.name;
-        div.onclick = function(){
-            input.value = player.name;
-            selectedPlayerId = player.id;
-            list.style.display = "none";
-        };
-        list.appendChild(div);
-    });
-    list.style.display = found.length
-        ? "block"
-        : "none";
-});
-    
-
-
-document.addEventListener("click", function (e) {
-    if (!e.target.closest(".autocomplete")) {
-        list.style.display = "none";
-    }
-});
-/*
-input.addEventListener("blur", function () {
-    if (this.value && !players.includes(this.value)) {
-        alert("Wybierz nazwisko z listy.");
-        this.value = "";
-    }
-}); */
-    
-async function sendTypy() {
-        const name = document.getElementById('playerName').value.trim();
+    async function sendTypy() {
+        const name = document.getElementById('userName').value.trim();
         const stageText = stageSelect.options[stageSelect.selectedIndex].text;
         const jokerRadio = document.querySelector('input[name="joker"]:checked');
-        const pin = document.getElementById("playerPin").value.trim();
-        
+
         if (!name || !jokerRadio) return alert("Podaj imię i zaznacz Jokera!");
-  /*      if (!players.includes(name)) {
-                alert("Wybierz swoje imię i nazwisko z listy");
-                document.getElementById("playerName").focus();
-                return;
-                }  */
-        if (!selectedPlayerId) {alert("Wybierz nazwisko z listy."); return;}
-        if (!pin) {alert("Podaj PIN."); return;}
-    
+        
             const button = document.getElementById("sendBtn");
             button.disabled = true;
             button.innerText = "WYSYŁANIE...";
@@ -239,9 +120,9 @@ async function sendTypy() {
         statusDiv.innerText = "WYSYŁANIE...";
         const typyDanych = [];
         const rows = document.querySelectorAll('.row');
-
+        
         let message = `Uczestnik: ${name}\nRunda play-off: ${stageText}\n\nTYPY:\n`;
-    
+        
         rows.forEach((row, index) => {
             const el = row.querySelector('.col-mecz');
             const g1 = row.querySelector('.g1').value || "0";
@@ -254,54 +135,38 @@ async function sendTypy() {
                 nr: el.getAttribute('data-nr'), 
                 druzyna: el.getAttribute('data-t1'), 
                 gole: g1, 
-                joker: (jokerRadio.value == index ? "joker" : ""), 
-                wiersz: 2*index
+                joker: (jokerRadio.value == index ? "joker" : ""),
+                wiersz: 2 * index
             });
             typyDanych.push({ 
                 nr: el.getAttribute('data-nr'), 
                 druzyna: el.getAttribute('data-t2'), 
                 gole: g2, 
                 joker: "",
-                wiersz: 2*index + 1
+                wiersz: 2 * index + 1
             });
         });
-
-        const payload = { id: selectedPlayerId, pin: pin, etap: stageText, typy: typyDanych };
+        const payload = { user: name, etap: stageText, typy: typyDanych };
 
         try {
-            //const response = await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) });
-            const response = await fetch(scriptUrl,{ method:"POST", headers:{ "Content-Type":"application/json"}, body:JSON.stringify(payload) });
-            const result = await response.json();
-            if (!result.success) {
-                alert(result.message);
-                button.disabled = false;
-                button.innerText = "WYŚLIJ TYPY";
-            return;
-            }
-            document.getElementById("playerPin").value = "";
-            selectedPlayerId = null;
-            document.getElementById("playerName").value = "";
-            alert("Typy zostały zapisane!");
+            await fetch(scriptUrl, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+            alert("Typy zostały wysłane!");
             button.innerText = "WYSŁANE";
-            document.getElementById('playerName').value = "";
+            document.getElementById('userName').value = "";
             loadData();
-            const subject = `Potwierdzenie wysłania typów - ${stageText} - ${name}`;
-            const mailto = `mailto:${mailOdbiorcy}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
-            button.style.display = "none";
-            const mailButton = document.getElementById("mailButton");
-            mailButton.style.display = "block";
-            mailButton.onclick = () => { window.location.href = mailto;  mailButton.disabled = true; mailButton.innerText = "WYGENEROWANO EMAIL";};
         } catch (error) {
             alert("Wystąpił błąd!");
                 button.disabled = false;
                 button.innerText = "WYŚLIJ TYPY";
             statusDiv.innerText = "BŁĄD";
         }
+    const subject = `Potwierdzenie wysłania typów - ${stageText} - ${name}`;
+    const mailto = `mailto:${mailOdbiorcy}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+    window.location.href = mailto;           
     }
-    stageSelect.value = "619158091";
+
     stageSelect.addEventListener('change', loadData);
     loadData();
-    loadPlayers();
 </script>
 
 </body>
