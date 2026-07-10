@@ -172,8 +172,8 @@
             button.style.display = "none";
             const mailButton = document.getElementById("mailButton");
             mailButton.style.display = "block";
-            mailButton.onclick = () => { window.location.href = mailto;  mailButton.disabled = true; mailButton.innerText = "WYGENEROWANO EMAIL";};  
-            statusDiv.innerText = "TYPOWANIE ZAKOŃCZONE";// <-- DOTĄD
+            mailButton.onclick = () => { window.location.href = mailto;  mailButton.disabled = true; mailButton.innerText = "WYGENEROWANO EMAIL"; statusDiv.innerText = "TYPOWANIE ZAKOŃCZONE";};  
+            // <-- DOTĄD
         } catch (error) {
             alert("Wystąpił błąd!");
                 button.disabled = false;
@@ -187,6 +187,7 @@
     window.location.href = mailto;         */
     }
 
+    stageSelect.value = "619158091";
     stageSelect.addEventListener('change', loadData);
     loadData();
 </script>
