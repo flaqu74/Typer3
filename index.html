@@ -164,7 +164,7 @@
             alert("Typy zostały wysłane!");
             button.innerText = "WYSŁANE";
             document.getElementById('userName').value = "";
-            loadData();
+            //loadData();
             // WKLEJONE:
             const subject = `Potwierdzenie wysłania typów - ${stageText} - ${name}`;
             const mailto = `mailto:${mailOdbiorcy}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
