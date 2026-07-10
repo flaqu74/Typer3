@@ -155,12 +155,12 @@
             // BYŁO: await fetch(scriptUrl, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
             //JEST:
             const response = await fetch(scriptUrl, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-            const result = await response.json();
+            /*const result = await response.json();
             if (!result.success) {
                 alert(result.message);
                 button.disabled = false;
                 button.innerText = "WYŚLIJ TYPY";
-            return;} // <-- Wklejone DOTĄD
+            return;} */  // <-- Wklejone DOTĄD
             alert("Typy zostały wysłane!");
             button.innerText = "WYSŁANE";
             document.getElementById('userName').value = "";
