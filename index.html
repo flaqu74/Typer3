@@ -162,8 +162,9 @@
                 button.innerText = "WYŚLIJ TYPY";
             return;} */  // <-- Wklejone DOTĄD
             alert("Typy zostały wysłane!");
-            button.innerText = "WYSŁANE";
-            document.getElementById('userName').value = "";
+            //button.innerText = "WYSŁANE";
+            statusDiv.innerText = "Możesz wysłać potwierdzenie";
+            //document.getElementById('userName').value = "";
             //loadData();
             // WKLEJONE:
             const subject = `Potwierdzenie wysłania typów - ${stageText} - ${name}`;
