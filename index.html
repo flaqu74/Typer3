@@ -99,7 +99,8 @@
                         <input type="number" class="g2" placeholder="0">
                     </div>
                     <div class="col-joker">
-                        <input type="radio" name="joker" value="${index}">
+                       <!-- <input type="radio" name="joker" value="${index}"> -->
+                        <input type="radio" name="joker" value="${index}" ${index === 1 ? 'checked' : ''} disabled>
                     </div>
                 `;
                 matchListDiv.appendChild(row);
